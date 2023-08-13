@@ -33,12 +33,12 @@ ipDatetime: clean $(EXE)
 userId: SORT1 = -DPRIMARY=2
 userId: SORT2 = -DSECONDARY=0
 userId: clean $(EXE)
-	mv $(EXE) ipDatetime
+	mv $(EXE) userId
 
 datetimeIp: SORT1 = -DPRIMARY=0
 datetimeIp: SORT2 = -DSECONDARY=1
 datetimeIp: clean $(EXE)
-	mv $(EXE) ipDatetime
+	mv $(EXE) datetimeIp
 
 $(EXE): $(OBJ)
 	$(CXX) $(OBJ) -o $@ $(LDFLAGS)
