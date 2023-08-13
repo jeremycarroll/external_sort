@@ -18,12 +18,12 @@ struct CustomRecord
 struct CustomRecordComparator
 {
     bool operator()(const CustomRecord& x, const CustomRecord& y) const {
-	if (x.u.i32[1] == y.u.i32[1]) { 
+	if (x.u.i32[PRIMARY] == y.u.i32[PRIMARY]) { 
        	// Datetime
-	  return x.u.i32[0] < y.u.i32[0];
+	  return x.u.i32[SECONDARY] < y.u.i32[SECONDARY];
         }
 	// IP
-	return x.u.i32[1] < y.u.i32[1];
+	return x.u.i32[PRIMARY] < y.u.i32[PRIMARY];
     }
 };
 

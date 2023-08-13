@@ -11,6 +11,8 @@ LDFLAGS	= \
 
 EXE	= external_sort
 SRC	= external_sort_main.cc logging/logging.cc
+SORT1   = 0
+SORT2   = 1
 
 OBJ	= $(SRC:.cc=.o)
 
@@ -23,11 +25,26 @@ debug:	CFLAGS += -g -DDEBUG -DBOOSTLOG -DBOOST_LOG_DYN_LINK
 debug:	LDFLAGS += -lboost_log 	-lboost_log_setup -lboost_thread
 debug:	$(EXE)
 
+ipDatetime: SORT1 = -DPRIMARY=1
+ipDatetime: SORT2 = -DSECONDARY=0
+ipDatetime: clean $(EXE)
+	mv $(EXE) ipDatetime
+
+userId: SORT1 = -DPRIMARY=2
+userId: SORT2 = -DSECONDARY=0
+userId: clean $(EXE)
+	mv $(EXE) ipDatetime
+
+datetimeIp: SORT1 = -DPRIMARY=0
+datetimeIp: SORT2 = -DSECONDARY=1
+datetimeIp: clean $(EXE)
+	mv $(EXE) ipDatetime
+
 $(EXE): $(OBJ)
 	$(CXX) $(OBJ) -o $@ $(LDFLAGS)
 
 .cc.o:
-	$(CXX) $(CFLAGS) $(INCL) $< -o $@
+	$(CXX) $(CFLAGS) $(SORT1) $(SORT2) $(INCL) $< -o $@
 
 clean:
 	rm -f $(EXE) $(OBJ)
